@@ -1,0 +1,43 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "test": "jest -i --colors --verbose --detectOpenHandles",
+    "test:watch": "jest -i --watchAll",
+    "migrate:up":  "migrate-mongo up",
+    "migrate:down":  "migrate-mongo down",
+    "migrate:create":  "migrate-mongo create"
+  },
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.1.0",
+    "helmet": "^5.0.1",
+    "http-status": "^1.5.0",
+    "mongoose": "^6.1.7",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0",
+    "winston": "^3.4.0",
+    "xss-clean": "^0.1.1",
+    "yup": "^0.32.11"
+  },
+  "devDependencies": {
+    "coveralls": "^3.1.1",
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.7.0",
+    "eslint-plugin-security": "^1.4.0",
+    "faker": "^6.6.6",
+    "jest": "^27.4.7",
+    "migrate-mongo": "^8.2.3",
+    "nodemon": "^2.0.15"
+  }
+}
