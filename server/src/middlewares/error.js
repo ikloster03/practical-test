@@ -18,7 +18,7 @@ const errorConverter = (err, req, res, next) => {
   next(error);
 };
 
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
   let { statusCode, message } = err;
 
   if (config.env === 'production' && !err.isOperational) {
@@ -38,7 +38,7 @@ const errorHandler = (err, req, res) => {
     logger.error(err);
   }
 
-  res.status(statusCode).send(response);
+  res.status(statusCode).json(response);
 };
 
 module.exports = {
