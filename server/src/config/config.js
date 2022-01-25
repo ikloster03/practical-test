@@ -7,7 +7,7 @@ dotenv.config({ path: path.join(__dirname, '../../.env') });
 const schema = yup.object()
   .noUnknown()
   .shape({
-    NODE_ENV: yup.string().oneOf(['development', 'production']).default('production'),
+    NODE_ENV: yup.string().oneOf(['development', 'test', 'production']).default('production'),
     PORT: yup.number().default(3000),
     MONGODB_URL: yup.string().required(),
   });
