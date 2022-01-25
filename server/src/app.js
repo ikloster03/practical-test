@@ -4,14 +4,18 @@ const xss = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 const cors = require('cors');
 const httpStatus = require('http-status');
+const bodyParser = require('body-parser');
 const config = require('./config/config');
 const morgan = require('./config/morgan');
 // const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./modules');
+const docRoutes = require('./docs');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/api-error');
 
 const app = express();
+
+app.use(bodyParser.json({ type: 'application/*+json' }));
 
 app.use(morgan.successHandler);
 app.use(morgan.errorHandler);
@@ -37,6 +41,8 @@ app.options('*', cors());
 if (config.env === 'production') {
   // app.use('/v1/auth', authLimiter);
 }
+
+app.use('/', docRoutes);
 
 // v1 api routes
 app.use('/api/v1/', routes);
