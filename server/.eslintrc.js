@@ -34,6 +34,8 @@ module.exports = {
     'func-names': 'off',
     'jest/expect-expect': 'off',
     'security/detect-object-injection': 'off',
+    'max-len': ['warn', { code: 150 }],
+    'no-restricted-syntax': ['error', 'WithStatement'],
   },
   settings: {
     'import/resolver': {
