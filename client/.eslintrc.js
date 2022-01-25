@@ -32,6 +32,7 @@ module.exports = {
       { blankLine: 'always', prev: ['const', 'var', 'let'], next: '*' },
       { blankLine: 'any', prev: ['const', 'let', 'var'], next: ['const', 'let', 'var'] },
     ],
+    'max-len': ['warn', { code: 150 }],
   },
   settings: {
     'import/resolver': {
