@@ -20,11 +20,15 @@ const router = express.Router();
  *      description: Retrieve a list of providers
  *      tags:
  *        - Providers
- *    produces:
- *      - application/json
- *    responses:
- *      200:
- *        description: providers
+ *      responses:
+ *        200:
+ *          description: A list of providers.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/Provider'
  */
 router.get('/', providerController.list);
 
@@ -36,11 +40,20 @@ router.get('/', providerController.list);
  *      description: Retrieve a particular provider
  *      tags:
  *        - Providers
- *    produces:
- *      - application/json
- *    responses:
- *      200:
- *        description: provider
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: Numeric ID of the provider to retrieve.
+ *          schema:
+ *            type: integer
+ *      responses:
+ *        200:
+ *          description: A provider.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Provider'
  */
 router.get('/:id', validateParams(providerParamsSchema), providerController.one);
 
@@ -52,11 +65,26 @@ router.get('/:id', validateParams(providerParamsSchema), providerController.one)
  *      description: Create a provider
  *      tags:
  *        - Providers
- *    produces:
- *      - application/json
- *    responses:
- *      200:
- *        description: provider
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                  description: The provider's name.
+ *                  example: Runolfsdottir, Roberts and Stiedemann
+ *              required:
+ *                - name
+ *      responses:
+ *        200:
+ *          description: A provider.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Provider'
  */
 router.post('/', validateBody(providerSchema), providerController.create);
 
@@ -68,11 +96,31 @@ router.post('/', validateBody(providerSchema), providerController.create);
  *      description: Update a provider
  *      tags:
  *        - Providers
- *    produces:
- *      - application/json
- *    responses:
- *      200:
- *        description: provider
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: Numeric ID of the provider to retrieve.
+ *          schema:
+ *            type: integer
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                  description: The provider's name.
+ *                  example: Runolfsdottir, Roberts and Stiedemann
+ *      responses:
+ *        200:
+ *          description: A provider.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Provider'
  */
 router.put('/:id', validateParams(providerParamsSchema), validateBody(providerSchema), providerController.update);
 
@@ -84,11 +132,20 @@ router.put('/:id', validateParams(providerParamsSchema), validateBody(providerSc
  *      description: Delete a provider
  *      tags:
  *        - Providers
- *    produces:
- *      - application/json
- *    responses:
- *      200:
- *        description: provider
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: Numeric ID of the provider to retrieve.
+ *          schema:
+ *            type: integer
+ *      responses:
+ *        200:
+ *          description: A provider.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Provider'
  */
 router.delete('/:id', validateParams(providerParamsSchema), providerController.remove);
 

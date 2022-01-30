@@ -24,15 +24,10 @@ const phoneSchema = yup.string().phone('US').required();
  *          type: string
  *        providers:
  *          type: array
+ *          items:
+ *            type: string
  *        seeded:
  *          type: boolean
- *        example:
- *          id: 5ebac534954b54139806c112
- *          name: fake name
- *          email: fake@example.com
- *          phone: 2024561414
- *          providers: []
- *          seeded: false
  */
 const ClientSchema = new mongoose.Schema(
   {

@@ -13,10 +13,6 @@ const mongoose = require('mongoose');
  *          type: string
  *        seeded:
  *          type: boolean
- *        example:
- *          id: 5ebac534954b54139806c112
- *          name: fake name
- *          seeded: false
  */
 const ProviderSchema = new mongoose.Schema(
   {
