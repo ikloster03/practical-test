@@ -20,6 +20,8 @@ const payload2 = {
   name: 'test-2',
 };
 
+let testClient;
+
 beforeAll(async () => {
   await mongoose.connect(config.mongoose.url, config.mongoose.options);
   logger.info('Connected to MongoDB');
@@ -34,11 +36,21 @@ describe('Provider\'s Endpoints', () => {
   });
 
   it('should create a new provider', async () => {
-    const res = await request(app).post('/api/v1/providers').send(payload);
+    const newProvider = await request(app).post('/api/v1/providers').send(payload);
 
-    testProvider = res.body;
+    const { body: clients } = await request(app).get('/api/v1/clients');
 
-    expect(res.statusCode).toEqual(httpStatus.OK);
+    const [client] = clients;
+
+    testProvider = newProvider.body;
+
+    const updatedClient = await request(app).put(`/api/v1/clients/${client._id}`).send({
+      providers: [...client.providers, testProvider._id],
+    });
+
+    testClient = updatedClient.body;
+
+    expect(newProvider.statusCode).toEqual(httpStatus.OK);
     expect(testProvider.name).toBe(payload.name);
   });
 
@@ -89,13 +101,24 @@ describe('Provider\'s Endpoints', () => {
     expect(res.body.code).toBe(httpStatus.NOT_FOUND);
     expect(res.body.message).toBe('Provider is not found');
   });
+  //
+  // it('should delete a provider', async () => {
+  //   const res = await request(app).delete(`/api/v1/providers/${testProvider._id}`);
+  //
+  //   testProvider = null;
+  //
+  //   expect(res.statusCode).toEqual(httpStatus.OK);
+  // });
 
-  it('should delete a provider', async () => {
+  it('should delete all mentions of client\'s providers before deleting provider', async () => {
     const res = await request(app).delete(`/api/v1/providers/${testProvider._id}`);
+
+    const res2 = await request(app).get(`/api/v1/clients/${testClient._id}`);
 
     testProvider = null;
 
     expect(res.statusCode).toEqual(httpStatus.OK);
+    expect(res2.body.providers.length).toBe(testClient.providers.length - 1);
   });
 
   it('shouldn\'t delete a provider', async () => {

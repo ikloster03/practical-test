@@ -1,6 +1,5 @@
 const yup = require('yup');
 const { PhoneOrUndefinedSchema } = require('../../utils');
-const { providerSchema } = require('../provider/provider.schema');
 
 require('yup-phone');
 require('../../utils/yup-rules');
@@ -13,14 +12,14 @@ const clientCreatingSchema = yup.object({
   name: yup.string().min(1).required(),
   email: yup.string().email().required(),
   phone: yup.string().phone('US').required(),
-  providers: yup.array().of(providerSchema),
+  providers: yup.array().of(yup.string().objectId()),
 });
 
 const clientUpdatingSchema = yup.object({
   name: yup.string().min(1),
   email: yup.string().email(),
   phone: PhoneOrUndefinedSchema,
-  providers: yup.array().of(providerSchema),
+  providers: yup.array().of(yup.string().objectId()),
 });
 
 module.exports = { clientParamsSchema, clientCreatingSchema, clientUpdatingSchema };
