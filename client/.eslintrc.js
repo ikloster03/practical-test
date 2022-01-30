@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
     'vue/setup-compiler-macros': true,
+    jest: true,
   },
   extends: [
     'plugin:vue/vue3-recommended',
@@ -43,7 +44,7 @@ module.exports = {
         map: [
           ['@', `${__dirname}/src`],
         ],
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
+        extensions: ['.js', '.vue'],
       },
     },
   },
