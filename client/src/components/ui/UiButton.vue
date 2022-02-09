@@ -1,7 +1,7 @@
 <template>
   <button
     class="ui-button"
-    :class="currentClass"
+    :class="[currentClass, { 'ui-button_disabled': disabled }]"
     :disabled="disabled"
     @click="$emit('click', $event)">
     <slot>{{ label }}</slot>
@@ -32,6 +32,7 @@ export default {
     const dict = {
       primary: 'ui-button_primary',
       close: 'ui-button_close',
+      link: 'ui-button_link',
     };
 
     if (!dict[props.type]) {
@@ -52,5 +53,17 @@ export default {
 
 .ui-button_primary {
   @apply bg-cyan-600 rounded p-2 text-white;
+}
+
+.ui-button_close {
+
+}
+
+.ui-button_link {
+  display: flex;
+}
+
+.ui-button_disabled {
+  @apply opacity-25;
 }
 </style>
