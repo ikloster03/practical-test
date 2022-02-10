@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import VueUniversalModal from 'vue-universal-modal';
 import Notifications from '@kyvg/vue3-notification';
+import Maska from 'maska';
 import UiButton from '@/components/ui/UiButton.vue';
 import UiPreloader from '@/components/ui/UiPreloader.vue';
 import UiIcon from '@/components/ui/UiIcon.vue';
@@ -17,6 +18,7 @@ const app = createApp(App)
     modalComponent: 'VueUniversalModal',
   })
   .use(Notifications)
+  .use(Maska)
   .component('ui-button', UiButton)
   .component('ui-preloader', UiPreloader)
   .component('ui-icon', UiIcon)
