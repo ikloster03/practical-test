@@ -7,7 +7,7 @@
         </h1>
         <ui-button
           class="flex"
-          @click.prevent="openModal">
+          @click.prevent="openModal(null)">
           <ui-icon name="plus" />
           <span>New Client</span>
         </ui-button>
@@ -17,7 +17,7 @@
         #default>
         <client-table-row header>
           <client-table-cell
-            v-for="header in headers"
+            v-for="header in HEADERS"
             :key="`header-${header}`"
             header>
             {{ header }}
@@ -69,21 +69,28 @@
     </client-table>
     <client-modal-form
       v-model="showClientModalForm"
+      :loading="providerListLoading"
       :providers="providerList"
       :client="selectedClient"
-      @submit="createClient" />
+      @create-client="createClient"
+      @update-client="updateClient"
+      @remove-client="removeClient"
+      @create-provider="createProvider"
+      @update-provider="updateProvider"
+      @remove-provider="removeProvider" />
     <notifications position="bottom right" />
   </div>
 </template>
 
 <script>
 import { computed, ref } from 'vue';
-import { formatPhoneNumber, notifySuccess, notifyError } from '@/utils';
-import { ClientService, ProviderService } from '@/services';
+import { formatPhoneNumber } from '@/utils';
 import ClientTable from '@/components/client/ClientTable.vue';
 import ClientTableRow from '@/components/client/ClientTableRow.vue';
 import ClientModalForm from '@/components/client/ClientModalForm.vue';
 import ClientTableCell from '@/components/client/ClientTableCell.vue';
+import useClient, { HEADERS } from '@/components/client/client';
+import useProvider from '@/components/provider/provider';
 
 export default {
   components: {
@@ -93,123 +100,48 @@ export default {
     ClientTable,
   },
   setup() {
-    const headers = [
-      'Name',
-      'Email',
-      'Phone',
-      'Providers',
-      'Edit',
-      'Delete',
-    ];
-
     const showClientModalForm = ref(false);
     const selectedClient = ref(null);
 
     const {
-      isFetching: clientListLoading, data: clientList, onFetchError: onFetchClientError, execute: loadClientList,
-    } = ClientService.list();
-    const { isFetching: providerListLoading, data: providerList, onFetchError: onFetchProviderError } = ProviderService.list();
+      clientListLoading,
+      clientList,
+      createClient,
+      updateClient,
+      removeClient,
+    } = useClient(showClientModalForm);
+
+    const {
+      providerListLoading,
+      providerList,
+      createProvider,
+      updateProvider,
+      removeProvider,
+    } = useProvider();
 
     const loading = computed(() => clientListLoading.value || providerListLoading.value);
-
-    onFetchClientError((error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      // eslint-disable-next-line no-console
-      console.error('message', clientList.value?.message ?? '');
-      notifyError('An error occurred while loading the client\'s list!');
-    });
-
-    onFetchProviderError((error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      // eslint-disable-next-line no-console
-      console.error('message', providerList.value?.message ?? '');
-      notifyError('An error occurred while loading the provider\'s list!');
-    });
 
     const openModal = (client = null) => {
       selectedClient.value = client;
       showClientModalForm.value = true;
     };
 
-    const createClient = (payload) => {
-      const {
-        data, onFetchError, onFetchResponse,
-      } = ClientService.create(payload);
-
-      console.log('data', data);
-      onFetchResponse(() => {
-        showClientModalForm.value = false;
-        loadClientList();
-        notifySuccess(`The client ${payload.name} was successfully created!`);
-      });
-      onFetchError((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        // eslint-disable-next-line no-console
-        console.error('message', data.value?.message ?? '');
-        notifyError(`An error occurred while creating the client ${payload.name}!`);
-      });
-    };
-
-    const updateClient = (client, payload) => {
-      const {
-        data, onFetchError, onFetchResponse,
-      } = ClientService.update(client._id, payload);
-
-      console.log('data', data);
-      onFetchResponse(() => {
-        loadClientList();
-        notifySuccess(`The client ${client.name} was successfully updated!`);
-      });
-      onFetchError((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        // eslint-disable-next-line no-console
-        console.error('message', data.value?.message ?? '');
-        notifyError(`An error occurred while updating the client ${client.name}!`);
-      });
-    };
-
-    const removeClient = (client) => {
-      // eslint-disable-next-line no-restricted-globals,no-alert
-      const shouldDelete = confirm(`Should you would like delete ${client.name}?`);
-
-      if (!shouldDelete) {
-        return;
-      }
-
-      const {
-        data, onFetchError, onFetchResponse,
-      } = ClientService.remove(client._id);
-
-      console.log('data', data);
-      onFetchResponse(() => {
-        loadClientList();
-        notifySuccess(`The client ${client.name} was successfully deleted!`);
-      });
-      onFetchError((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        // eslint-disable-next-line no-console
-        console.error('message', data.value?.message ?? '');
-        notifyError(`An error occurred while deleting the client ${client.name}!`);
-      });
-    };
-
     return {
-      headers,
+      HEADERS,
       showClientModalForm,
       selectedClient,
       clientList,
       providerList,
       loading,
+      providerListLoading,
       formatPhoneNumber,
       openModal,
       createClient,
       updateClient,
       removeClient,
+      createProvider,
+      updateProvider,
+      removeProvider,
     };
   },
 };
