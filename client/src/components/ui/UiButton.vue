@@ -33,6 +33,7 @@ export default {
       primary: 'ui-button_primary',
       close: 'ui-button_close',
       link: 'ui-button_link',
+      delete: 'ui-button_delete',
     };
 
     if (!dict[props.type]) {
@@ -61,6 +62,10 @@ export default {
 
 .ui-button_link {
   display: flex;
+}
+
+.ui-button_delete {
+  @apply bg-red-600 rounded p-2 text-white;
 }
 
 .ui-button_disabled {
