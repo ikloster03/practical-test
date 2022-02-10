@@ -40,16 +40,22 @@ export default {
       type: Object,
       default: null,
     },
-    initialValue: {
-      type: [String, Boolean],
+    maska: {
+      type: String,
       default: '',
+    },
+    initialValue: {
+      type: [Object, String, Boolean, Number, null],
+      default: null,
     },
   },
   emits: ['change-field'],
   setup(props, { emit }) {
     const {
-      as, name, rules, initialValue, ...attrs
+      as, name, rules, initialValue,
     } = toRefs(props);
+
+    const { ...attrs } = props;
 
     const { required } = rules.value ? rules.value.exclusiveTests : {};
 

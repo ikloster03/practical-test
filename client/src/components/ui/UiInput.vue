@@ -1,6 +1,7 @@
 <template>
   <div class="ui-input">
     <input
+      v-maska="maska"
       v-bind="$attrs"
       :value="modelValue"
       type="text"
