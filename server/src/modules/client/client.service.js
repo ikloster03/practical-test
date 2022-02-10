@@ -4,7 +4,7 @@ const ApiError = require('../../utils/api-error');
 
 const create = async (data) => Client.create(data);
 
-const list = async () => Client.find().lean();
+const list = async () => Client.find().populate('providers').lean();
 
 const one = async (_id) => {
   const client = await Client.findOne({ _id }).lean();
