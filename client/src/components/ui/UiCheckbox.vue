@@ -41,7 +41,7 @@ export default {
   setup(props, { emit }) {
     const proxyModel = computed({
       get: () => !!props.modelValue,
-      set: (value) => emit('update:modelValue', value ? props.value : false),
+      set: (value) => emit('update:modelValue', value ? props.value : ''),
     });
 
     return { proxyModel };
@@ -65,5 +65,8 @@ export default {
   bg-no-repeat bg-center bg-contain
   float-left
   cursor-pointer;
+}
+.ui-checkbox__label {
+  @apply flex justify-between;
 }
 </style>
