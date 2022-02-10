@@ -41,6 +41,11 @@ export default {
 };
 </script>
 
+<style>
+.ui-modal {
+  z-index: 102;
+}
+</style>
 <style scoped>
 .ui-modal__container {
   @apply grid w-1/2 my-0 mx-auto;
