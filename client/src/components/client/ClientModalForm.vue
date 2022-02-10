@@ -86,20 +86,23 @@
         </div>
       </div>
       <div class="flex justify-between pt-8">
-        <ui-button
-          v-if="client"
-          type="delete"
-          @click.prevent="removeClient">
-          Delete Client
-        </ui-button>
+        <div>
+          <ui-button
+            v-if="client"
+            type="delete"
+            @click.prevent="removeClient">
+            Delete Client
+          </ui-button>
+        </div>
         <div class="flex">
           <ui-button
             class="mr-4"
-            @click.prevent="handleSubmit(submit)">
-            Submit
-          </ui-button>
-          <ui-button @click.prevent="close">
+            @click.prevent="close">
             Cancel
+          </ui-button>
+          <ui-button
+            @click.prevent="handleSubmit(submit)">
+            Save Client
           </ui-button>
         </div>
       </div>
