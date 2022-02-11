@@ -1,5 +1,6 @@
 import { ProviderService } from '@/services';
 import { notifyError, notifySuccess } from '@/utils';
+import { ref, watch } from 'vue';
 
 const useProvider = () => {
   const {
@@ -87,6 +88,26 @@ const useProvider = () => {
     updateProvider,
     removeProvider,
   };
+};
+
+export const useCurrentProviders = (props) => {
+  const currentProviders = ref([]);
+
+  const updateProviderList = () => {
+    currentProviders.value = props.providers.map(
+      (provider) => (props.client?.providers?.find((p) => p._id === provider._id) ? provider._id : ''),
+    );
+  };
+
+  watch(() => props.client, () => {
+    updateProviderList();
+  });
+
+  watch(() => props.providers, () => {
+    updateProviderList();
+  });
+
+  return { currentProviders };
 };
 
 export default useProvider;
