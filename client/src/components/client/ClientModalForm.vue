@@ -114,7 +114,7 @@ export default {
       updateProvider,
       removeProvider,
     } = useProviderEmits(emit);
-    const schemaFields = useClientFields(props.client);
+    const schemaFields = useClientFields(props);
 
     const title = computed(() => (props.client ? MODAL_TITLES.EDIT : MODAL_TITLES.CREATE));
     const isShown = computed({

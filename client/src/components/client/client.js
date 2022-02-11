@@ -13,14 +13,14 @@ export const HEADERS = [
   'Delete',
 ];
 
-export const useClientFields = (client) => [
+export const useClientFields = (props) => [
   {
     title: 'Name',
     name: 'name',
     as: 'input',
     type: 'text',
     rules: yup.string().required(),
-    initialValue: computed(() => client?.name ?? ''),
+    initialValue: computed(() => props.client?.name ?? ''),
   },
   {
     title: 'Email',
@@ -28,7 +28,7 @@ export const useClientFields = (client) => [
     as: 'input',
     type: 'email',
     rules: yup.string().email().required(),
-    initialValue: computed(() => client?.email ?? ''),
+    initialValue: computed(() => props.client?.email ?? ''),
   },
   {
     title: 'Phone',
@@ -37,7 +37,7 @@ export const useClientFields = (client) => [
     type: 'text',
     rules: yup.string().phone('US').required(),
     maska: '(###) ###-####',
-    initialValue: computed(() => client?.phone ?? ''),
+    initialValue: computed(() => props.client?.phone ?? ''),
   },
 ];
 
