@@ -66,6 +66,7 @@
         <div class="flex">
           <ui-button
             class="mr-4"
+            type="outline"
             @click.prevent="close">
             Cancel
           </ui-button>

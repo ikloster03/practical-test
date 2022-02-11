@@ -31,6 +31,7 @@ export default {
   setup(props) {
     const dict = {
       primary: 'ui-button_primary',
+      outline: 'ui-button_outline',
       close: 'ui-button_close',
       link: 'ui-button_link',
       delete: 'ui-button_delete',
@@ -54,6 +55,10 @@ export default {
 
 .ui-button_primary {
   @apply bg-cyan-600 rounded p-2 text-white;
+}
+
+.ui-button_outline {
+  @apply border-cyan-600 border-2 rounded p-2 text-cyan-600;
 }
 
 .ui-button_close {
