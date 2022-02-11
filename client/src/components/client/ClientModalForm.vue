@@ -6,35 +6,31 @@
     class="client-modal-form">
     <h1>{{ title }}</h1>
     <vee-form v-slot="{ handleSubmit }">
-      <div>
-        <ui-group
-          v-for="field in schemaFields"
-          :key="`field-${field.name}`">
-          <template #header>
-            {{ field.title }}
-          </template>
-          <template #default>
-            <ui-field v-bind="field" />
-          </template>
-        </ui-group>
-      </div>
+      <ui-group
+        v-for="field in schemaFields"
+        :key="`field-${field.name}`">
+        <template #header>
+          {{ field.title }}
+        </template>
+        <template #default>
+          <ui-field v-bind="field" />
+        </template>
+      </ui-group>
+
       <provider-create-item @create-provider="createProvider" />
-      <div class="client-modal-form__container">
-        <div class="client-modal-form__wrapper">
-          <div class="client-modal-form__empty">
-            empty
-          </div>
-          <provider-list>
-            <provider-list-item
-              v-for="(provider, index) in providers"
-              :key="`provider-${provider._id}`"
-              v-model="currentProviders[index]"
-              :provider="provider"
-              @update-provider="updateProvider"
-              @remove-provider="removeProvider" />
-          </provider-list>
-        </div>
-      </div>
+
+      <ui-group class="pt-8">
+        <provider-list>
+          <provider-list-item
+            v-for="(provider, index) in providers"
+            :key="`provider-${provider._id}`"
+            v-model="currentProviders[index]"
+            :provider="provider"
+            @update-provider="updateProvider"
+            @remove-provider="removeProvider" />
+        </provider-list>
+      </ui-group>
+
       <div class="flex justify-between pt-8">
         <div>
           <ui-button
