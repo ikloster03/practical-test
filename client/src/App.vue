@@ -36,12 +36,10 @@
             {{ formatPhoneNumber(client.phone) }}
           </client-table-cell>
           <client-table-cell chips>
-            <span
+            <provider-chip
               v-for="provider in client.providers"
               :key="`provider-${client._id}-${provider._id}`"
-              class="provider-chip">
-              {{ provider.name }}
-            </span>
+              :provider-name="provider.name" />
           </client-table-cell>
           <client-table-cell>
             <ui-button
@@ -85,6 +83,7 @@
 <script>
 import { computed, ref } from 'vue';
 import { formatPhoneNumber } from '@/utils';
+import ProviderChip from '@/components/provider/ProviderChip.vue';
 import ClientTable from '@/components/client/ClientTable.vue';
 import ClientTableRow from '@/components/client/ClientTableRow.vue';
 import ClientModalForm from '@/components/client/ClientModalForm.vue';
@@ -94,6 +93,7 @@ import useProvider from '@/components/provider/provider';
 
 export default {
   components: {
+    ProviderChip,
     ClientTableCell,
     ClientModalForm,
     ClientTableRow,
@@ -148,8 +148,5 @@ export default {
 </script>
 
 <style scoped>
-.provider-chip {
-  @apply px-2 py-1 m-1 rounded-full text-gray-500 bg-gray-200 font-semibold text-sm  w-max cursor-pointer active:bg-gray-300;
-}
 
 </style>
