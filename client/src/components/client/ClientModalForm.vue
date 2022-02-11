@@ -43,46 +43,15 @@
           <div class="client-modal-form__empty">
             empty
           </div>
-          <ul class="providers-list">
-            <li
+          <provider-list>
+            <provider-list-item
               v-for="(provider, index) in providers"
-              :key="`provider-${provider._id}`">
-              <ui-checkbox
-                v-model="currentProviders[index]"
-                :name="`provider-${provider._id}`"
-                :value="provider._id">
-                <span v-if="!providerToggles[index]">{{ provider.name }}</span>
-                <ui-input
-                  v-if="providerToggles[index]"
-                  v-model="editorProviders[index]" />
-                <span class="flex">
-                  <ui-button
-                    type="link"
-                    class="pr-2"
-                    @click.prevent="toggleProvider(index)">
-                    <ui-icon
-                      v-if="providerToggles[index]"
-                      name="close" />
-                    <ui-icon
-                      v-else
-                      name="edit" />
-                  </ui-button>
-                  <ui-button
-                    v-if="providerToggles[index]"
-                    type="link"
-                    @click.prevent="updateProvider(index, provider)">
-                    <ui-icon name="check" />
-                  </ui-button>
-                  <ui-button
-                    v-else
-                    type="link"
-                    @click.prevent="removeProvider(provider)">
-                    <ui-icon name="trash" />
-                  </ui-button>
-                </span>
-              </ui-checkbox>
-            </li>
-          </ul>
+              :key="`provider-${provider._id}`"
+              v-model="currentProviders[index]"
+              :provider="provider"
+              @update-provider="updateProvider"
+              @remove-provider="removeProvider" />
+          </provider-list>
         </div>
       </div>
       <div class="flex justify-between pt-8">
@@ -119,18 +88,18 @@ import 'yup-phone';
 import UiGroup from '@/components/ui/UiGroup.vue';
 import UiField from '@/components/ui/UiField.vue';
 import UiInput from '@/components/ui/UiInput.vue';
-import UiCheckbox from '@/components/ui/UiCheckbox.vue';
+import ProviderList from '@/components/provider/ProviderList.vue';
+import ProviderListItem from '@/components/provider/ProviderListItem.vue';
 
 export default {
   name: 'ClientModalForm',
   components: {
-    UiCheckbox,
+    ProviderListItem,
+    ProviderList,
     UiInput,
     UiGroup,
     UiField,
     'vee-form': Form,
-    // 'vee-field': Field,
-    // ErrorMessage,
   },
   props: {
     modelValue: {
@@ -162,15 +131,11 @@ export default {
   setup(props, { emit }) {
     const newProvider = ref('');
     const currentProviders = ref([]);
-    const editorProviders = ref([]);
-    const providerToggles = ref([]);
 
     const updateProviderList = () => {
       currentProviders.value = props.providers.map(
         (provider) => (props.client?.providers?.find((p) => p._id === provider._id) ? provider._id : ''),
       );
-      editorProviders.value = props.providers.map((p) => p.name);
-      providerToggles.value = props.providers.map(() => false);
     };
 
     watch(() => props.client, () => {
@@ -230,18 +195,13 @@ export default {
     };
 
     const createProvider = () => {
-      console.log('createProvider', newProvider.value);
       emit('create-provider', { name: newProvider.value });
       newProvider.value = '';
     };
 
-    const toggleProvider = (index) => {
-      providerToggles.value[index] = !providerToggles.value[index];
-    };
-
-    const updateProvider = (index, provider) => {
-      toggleProvider(index);
-      emit('update-provider', provider, { name: editorProviders.value[index] });
+    const updateProvider = (provider, payload) => {
+      // toggleProvider(index);
+      emit('update-provider', provider, payload);
     };
 
     const removeProvider = (provider) => {
@@ -251,15 +211,12 @@ export default {
     return {
       newProvider,
       currentProviders,
-      editorProviders,
-      providerToggles,
       isShown,
       title,
       schemaFields,
       submit,
       removeClient,
       createProvider,
-      toggleProvider,
       updateProvider,
       removeProvider,
     };
@@ -288,7 +245,4 @@ export default {
   @apply pr-3 w-2/12;
 }
 
-.providers-list {
-  @apply border border-solid border-gray-300 p-5 w-10/12;
-}
 </style>
