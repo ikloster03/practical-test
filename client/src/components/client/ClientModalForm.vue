@@ -68,7 +68,7 @@ import UiField from '@/components/ui/UiField.vue';
 import ProviderList from '@/components/provider/ProviderList.vue';
 import ProviderListItem from '@/components/provider/ProviderListItem.vue';
 import ProviderCreateItem from '@/components/provider/ProviderCreateItem.vue';
-import { useCurrentProviders } from '@/components/provider/provider';
+import { useCurrentProviders, useProviderEmits } from '@/components/provider/provider';
 
 export default {
   name: 'ClientModalForm',
@@ -109,6 +109,11 @@ export default {
   ],
   setup(props, { emit }) {
     const { currentProviders } = useCurrentProviders(props);
+    const {
+      createProvider,
+      updateProvider,
+      removeProvider,
+    } = useProviderEmits(emit);
 
     const title = computed(() => (props.client ? 'Edit client' : 'Create client'));
     const isShown = computed({
@@ -156,19 +161,6 @@ export default {
 
     const removeClient = () => {
       emit('remove-client', props.client);
-    };
-
-    const createProvider = (payload) => {
-      emit('create-provider', payload);
-    };
-
-    const updateProvider = (provider, payload) => {
-      // toggleProvider(index);
-      emit('update-provider', provider, payload);
-    };
-
-    const removeProvider = (provider) => {
-      emit('remove-provider', provider);
     };
 
     return {

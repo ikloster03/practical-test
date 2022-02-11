@@ -110,4 +110,24 @@ export const useCurrentProviders = (props) => {
   return { currentProviders };
 };
 
+export const useProviderEmits = (emit) => {
+  const createProvider = (payload) => {
+    emit('create-provider', payload);
+  };
+
+  const updateProvider = (provider, payload) => {
+    emit('update-provider', provider, payload);
+  };
+
+  const removeProvider = (provider) => {
+    emit('remove-provider', provider);
+  };
+
+  return {
+    createProvider,
+    updateProvider,
+    removeProvider,
+  };
+};
+
 export default useProvider;
