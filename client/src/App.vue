@@ -67,21 +67,14 @@
     </client-table>
     <client-modal-form
       v-model="showClientModalForm"
-      :loading="providerListLoading"
-      :providers="providerList"
-      :client="selectedClient"
-      @create-client="createClient"
-      @update-client="updateClient"
-      @remove-client="removeClient"
-      @create-provider="createProvider"
-      @update-provider="updateProvider"
-      @remove-provider="removeProvider" />
+      v-bind="modal.attrs"
+      v-on="modal.events" />
     <notifications position="bottom right" />
   </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { formatPhoneNumber } from '@/utils';
 import ProviderChip from '@/components/provider/ProviderChip.vue';
 import ClientTable from '@/components/client/ClientTable.vue';
@@ -121,6 +114,22 @@ export default {
 
     const loading = computed(() => clientListLoading.value || providerListLoading.value);
 
+    const modal = reactive({
+      attrs: {
+        providers: providerList,
+        loading: providerListLoading,
+        client: selectedClient,
+      },
+      events: {
+        'create-client': createClient,
+        'update-client': updateClient,
+        'remove-client': removeClient,
+        'create-provider': createProvider,
+        'update-provider': updateProvider,
+        'remove-provider': removeProvider,
+      },
+    });
+
     const openModal = (client = null) => {
       selectedClient.value = client;
       showClientModalForm.value = true;
@@ -129,11 +138,9 @@ export default {
     return {
       HEADERS,
       showClientModalForm,
-      selectedClient,
       clientList,
-      providerList,
       loading,
-      providerListLoading,
+      modal,
       formatPhoneNumber,
       openModal,
       createClient,
