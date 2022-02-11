@@ -69,6 +69,7 @@ import ProviderList from '@/components/provider/ProviderList.vue';
 import ProviderListItem from '@/components/provider/ProviderListItem.vue';
 import ProviderCreateItem from '@/components/provider/ProviderCreateItem.vue';
 import { useCurrentProviders, useProviderEmits } from '@/components/provider/provider';
+import { MODAL_TITLES } from '@/definitions';
 
 export default {
   name: 'ClientModalForm',
@@ -115,7 +116,7 @@ export default {
       removeProvider,
     } = useProviderEmits(emit);
 
-    const title = computed(() => (props.client ? 'Edit client' : 'Create client'));
+    const title = computed(() => (props.client ? MODAL_TITLES.EDIT : MODAL_TITLES.CREATE));
     const isShown = computed({
       get: () => props.modelValue,
       set: (value) => emit('update:modelValue', value),
