@@ -18,26 +18,7 @@
           </template>
         </ui-group>
       </div>
-      <div>
-        <ui-group>
-          <template #header>
-            Providers
-          </template>
-          <template #default>
-            <div class="flex">
-              <ui-input
-                v-model="newProvider"
-                class="w-8/12" />
-              <ui-button
-                class="w-4/12 ml-4"
-                :disabled="!newProvider"
-                @click.prevent="createProvider">
-                Add Provider
-              </ui-button>
-            </div>
-          </template>
-        </ui-group>
-      </div>
+      <provider-create-item @create-provider="createProvider" />
       <div class="client-modal-form__container">
         <div class="client-modal-form__wrapper">
           <div class="client-modal-form__empty">
@@ -88,16 +69,16 @@ import * as yup from 'yup';
 import 'yup-phone';
 import UiGroup from '@/components/ui/UiGroup.vue';
 import UiField from '@/components/ui/UiField.vue';
-import UiInput from '@/components/ui/UiInput.vue';
 import ProviderList from '@/components/provider/ProviderList.vue';
 import ProviderListItem from '@/components/provider/ProviderListItem.vue';
+import ProviderCreateItem from '@/components/provider/ProviderCreateItem.vue';
 
 export default {
   name: 'ClientModalForm',
   components: {
+    ProviderCreateItem,
     ProviderListItem,
     ProviderList,
-    UiInput,
     UiGroup,
     UiField,
     'vee-form': Form,
@@ -130,7 +111,6 @@ export default {
     'remove-provider',
   ],
   setup(props, { emit }) {
-    const newProvider = ref('');
     const currentProviders = ref([]);
 
     const updateProviderList = () => {
@@ -195,9 +175,8 @@ export default {
       emit('remove-client', props.client);
     };
 
-    const createProvider = () => {
-      emit('create-provider', { name: newProvider.value });
-      newProvider.value = '';
+    const createProvider = (payload) => {
+      emit('create-provider', payload);
     };
 
     const updateProvider = (provider, payload) => {
@@ -210,7 +189,6 @@ export default {
     };
 
     return {
-      newProvider,
       currentProviders,
       isShown,
       title,
