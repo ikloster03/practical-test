@@ -59,10 +59,8 @@
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue';
+import { computed } from 'vue';
 import { Form } from 'vee-validate';
-import * as yup from 'yup';
-import 'yup-phone';
 import UiGroup from '@/components/ui/UiGroup.vue';
 import UiField from '@/components/ui/UiField.vue';
 import ProviderList from '@/components/provider/ProviderList.vue';
@@ -70,6 +68,7 @@ import ProviderListItem from '@/components/provider/ProviderListItem.vue';
 import ProviderCreateItem from '@/components/provider/ProviderCreateItem.vue';
 import { useCurrentProviders, useProviderEmits } from '@/components/provider/provider';
 import { MODAL_TITLES } from '@/definitions';
+import { useClientFields } from '@/components/client/client';
 
 export default {
   name: 'ClientModalForm',
@@ -115,40 +114,13 @@ export default {
       updateProvider,
       removeProvider,
     } = useProviderEmits(emit);
+    const schemaFields = useClientFields(props.client);
 
     const title = computed(() => (props.client ? MODAL_TITLES.EDIT : MODAL_TITLES.CREATE));
     const isShown = computed({
       get: () => props.modelValue,
       set: (value) => emit('update:modelValue', value),
     });
-
-    const schemaFields = [
-      {
-        title: 'Name',
-        name: 'name',
-        as: 'input',
-        type: 'text',
-        rules: yup.string().required(),
-        initialValue: computed(() => props.client?.name ?? ''),
-      },
-      {
-        title: 'Email',
-        name: 'email',
-        as: 'input',
-        type: 'email',
-        rules: yup.string().email().required(),
-        initialValue: computed(() => props.client?.email ?? ''),
-      },
-      {
-        title: 'Phone',
-        name: 'phone',
-        as: 'input',
-        type: 'text',
-        rules: yup.string().phone('US').required(),
-        maska: '(###) ###-####',
-        initialValue: computed(() => props.client?.phone ?? ''),
-      },
-    ];
 
     const submit = (data) => {
       const payload = { ...data, providers: currentProviders.value.filter((p) => !!p) };

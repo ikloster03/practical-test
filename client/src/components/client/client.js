@@ -1,3 +1,6 @@
+import { computed } from 'vue';
+import * as yup from 'yup';
+import 'yup-phone';
 import { ClientService } from '@/services';
 import { notifyError, notifySuccess } from '@/utils';
 
@@ -8,6 +11,34 @@ export const HEADERS = [
   'Providers',
   'Edit',
   'Delete',
+];
+
+export const useClientFields = (client) => [
+  {
+    title: 'Name',
+    name: 'name',
+    as: 'input',
+    type: 'text',
+    rules: yup.string().required(),
+    initialValue: computed(() => client?.name ?? ''),
+  },
+  {
+    title: 'Email',
+    name: 'email',
+    as: 'input',
+    type: 'email',
+    rules: yup.string().email().required(),
+    initialValue: computed(() => client?.email ?? ''),
+  },
+  {
+    title: 'Phone',
+    name: 'phone',
+    as: 'input',
+    type: 'text',
+    rules: yup.string().phone('US').required(),
+    maska: '(###) ###-####',
+    initialValue: computed(() => client?.phone ?? ''),
+  },
 ];
 
 const useClient = (showClientModalForm) => {
