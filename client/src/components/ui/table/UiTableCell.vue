@@ -1,6 +1,6 @@
 <template>
   <div
-    class="client-table-row__cell"
+    class="ui-table-row__cell"
     :class="classes">
     <slot />
   </div>
@@ -10,7 +10,7 @@
 import { computed } from 'vue';
 
 export default {
-  name: 'ClientTableCell',
+  name: 'UiTableCell',
   props: {
     header: {
       type: Boolean,
@@ -23,8 +23,8 @@ export default {
   },
   setup(props) {
     const classes = computed(() => ({
-      'client-table-row__cell_header': props.header,
-      'client-table-row__cell_chips': props.chips,
+      'ui-table-row__cell_header': props.header,
+      'ui-table-row__cell_chips': props.chips,
     }));
 
     return { classes };
@@ -33,13 +33,13 @@ export default {
 </script>
 
 <style scoped>
-.client-table-row__cell {
+.ui-table-row__cell {
   @apply px-5;
 }
-.client-table-row__cell_header {
+.ui-table-row__cell_header {
   @apply px-5;
 }
-.client-table-row__cell_chips {
+.ui-table-row__cell_chips {
   @apply flex flex-wrap justify-center space-x-2;
 }
 </style>

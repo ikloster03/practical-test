@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto py-10">
-    <client-table>
+    <ui-table>
       <template #header>
         <h1>
           Clients
@@ -15,33 +15,36 @@
       <template
         v-if="!loading"
         #default>
-        <client-table-row header>
-          <client-table-cell
+        <ui-table-row
+          header
+          class="ui-table-row_client">
+          <ui-table-cell
             v-for="header in HEADERS"
             :key="`header-${header}`"
             header>
             {{ header }}
-          </client-table-cell>
-        </client-table-row>
-        <client-table-row
+          </ui-table-cell>
+        </ui-table-row>
+        <ui-table-row
           v-for="client in clientList"
-          :key="`row-client-${client._id}`">
-          <client-table-cell>
+          :key="`row-client-${client._id}`"
+          class="ui-table-row_client">
+          <ui-table-cell>
             {{ client.name }}
-          </client-table-cell>
-          <client-table-cell>
+          </ui-table-cell>
+          <ui-table-cell>
             {{ client.email }}
-          </client-table-cell>
-          <client-table-cell>
+          </ui-table-cell>
+          <ui-table-cell>
             {{ formatPhoneNumber(client.phone) }}
-          </client-table-cell>
-          <client-table-cell chips>
+          </ui-table-cell>
+          <ui-table-cell chips>
             <provider-chip
               v-for="provider in client.providers"
               :key="`provider-${client._id}-${provider._id}`"
               :provider-name="provider.name" />
-          </client-table-cell>
-          <client-table-cell>
+          </ui-table-cell>
+          <ui-table-cell>
             <ui-button
               type="link"
               @click.prevent="openModal(client)">
@@ -50,8 +53,8 @@
               </span>
               <ui-icon name="edit" />
             </ui-button>
-          </client-table-cell>
-          <client-table-cell>
+          </ui-table-cell>
+          <ui-table-cell>
             <ui-button
               type="link"
               @click.prevent="removeClient(client)">
@@ -60,11 +63,11 @@
               </span>
               <ui-icon name="trash" />
             </ui-button>
-          </client-table-cell>
-        </client-table-row>
+          </ui-table-cell>
+        </ui-table-row>
       </template>
       <ui-preloader v-if="loading" />
-    </client-table>
+    </ui-table>
     <client-modal-form
       v-model="showClientModalForm"
       v-bind="modal.attrs"
@@ -77,20 +80,20 @@
 import { computed, reactive, ref } from 'vue';
 import { formatPhoneNumber } from '@/utils';
 import ProviderChip from '@/components/provider/ProviderChip.vue';
-import ClientTable from '@/components/client/ClientTable.vue';
-import ClientTableRow from '@/components/client/ClientTableRow.vue';
 import ClientModalForm from '@/components/client/ClientModalForm.vue';
-import ClientTableCell from '@/components/client/ClientTableCell.vue';
 import useClient, { HEADERS } from '@/components/client/client';
 import useProvider from '@/components/provider/provider';
+import UiTable from '@/components/ui/table/UiTable.vue';
+import UiTableRow from '@/components/ui/table/UiTableRow.vue';
+import UiTableCell from '@/components/ui/table/UiTableCell.vue';
 
 export default {
   components: {
+    UiTableCell,
+    UiTableRow,
+    UiTable,
     ProviderChip,
-    ClientTableCell,
     ClientModalForm,
-    ClientTableRow,
-    ClientTable,
   },
   setup() {
     const showClientModalForm = ref(false);
@@ -155,5 +158,13 @@ export default {
 </script>
 
 <style scoped>
-
+.ui-table-row_client {
+  grid-template-columns:
+    minmax(150px, 1fr)
+    minmax(250px, 1.5fr)
+    minmax(150px, 0.5fr)
+    minmax(350px, 1.5fr)
+    minmax(100px, 0.5fr)
+    minmax(100px, 0.5fr);
+}
 </style>

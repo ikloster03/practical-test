@@ -1,9 +1,9 @@
 <template>
-  <div class="client-table">
-    <div class="client-table__header">
+  <div class="ui-table">
+    <div class="ui-table__header">
       <slot name="header" />
     </div>
-    <div class="client-table__body">
+    <div class="ui-table__body">
       <slot />
     </div>
   </div>
@@ -11,15 +11,15 @@
 
 <script>
 export default {
-  name: 'ClientTable',
+  name: 'UiTable',
 };
 </script>
 
 <style scoped>
-.client-table__header {
+.ui-table__header {
   @apply flex justify-between items-center p-5 bg-slate-100;
 }
-.client-table__body {
- @apply relative divide-y divide-gray-200;
+.ui-table__body {
+  @apply relative divide-y divide-gray-200;
 }
 </style>
