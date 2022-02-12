@@ -4,7 +4,7 @@
       Providers
     </template>
     <template #default>
-      <div class="block xl:flex">
+      <div class="block xl:flex py-3">
         <ui-input
           v-model="provider"
           class="xl:w-8/12" />

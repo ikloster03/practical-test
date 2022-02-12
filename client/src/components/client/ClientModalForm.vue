@@ -19,7 +19,7 @@
 
       <provider-create-item @create-provider="createProvider" />
 
-      <ui-group class="pt-8">
+      <ui-group class="pt-5">
         <provider-list>
           <provider-list-item
             v-for="(provider, index) in providers"
