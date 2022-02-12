@@ -11,7 +11,10 @@ export default {
 </script>
 
 <style scoped>
-.providers-list {
-  @apply border border-solid border-gray-300 p-5 w-10/12;
+.provider-list {
+  @apply border border-solid border-gray-300 p-5;
+  height: 250px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 </style>

@@ -4,12 +4,12 @@
       Providers
     </template>
     <template #default>
-      <div class="flex">
+      <div class="block xl:flex">
         <ui-input
           v-model="provider"
-          class="w-8/12" />
+          class="xl:w-8/12" />
         <ui-button
-          class="w-4/12 ml-4"
+          class="mt-4 xl:w-4/12 xl:ml-4 xl:mt-0"
           :disabled="!provider"
           @click.prevent="createProvider">
           Add Provider
