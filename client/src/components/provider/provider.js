@@ -2,7 +2,7 @@ import { ProviderService } from '@/services';
 import { notifyError, notifySuccess } from '@/utils';
 import { ref, watch } from 'vue';
 
-const useProvider = () => {
+const useProvider = (loadClientList) => {
   const {
     isFetching: providerListLoading, data: providerList, onFetchError: onFetchProviderError, execute: loadProviderList,
   } = ProviderService.list();
@@ -42,6 +42,7 @@ const useProvider = () => {
     console.log('data', data);
     onFetchResponse(() => {
       loadProviderList();
+      loadClientList();
       notifySuccess(`The provider ${provider.name} was successfully updated!`);
     });
     onFetchError((error) => {
@@ -68,6 +69,7 @@ const useProvider = () => {
     console.log('data', data);
     onFetchResponse(() => {
       loadProviderList();
+      loadClientList();
       notifySuccess(`The provider ${provider.name} was successfully deleted!`);
     });
     onFetchError((error) => {

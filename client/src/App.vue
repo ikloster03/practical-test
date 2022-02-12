@@ -34,6 +34,7 @@ export default {
     const {
       clientListLoading,
       clientList,
+      loadClientList,
       createClient,
       updateClient,
       removeClient,
@@ -45,7 +46,7 @@ export default {
       createProvider,
       updateProvider,
       removeProvider,
-    } = useProvider();
+    } = useProvider(loadClientList);
 
     const loading = computed(() => clientListLoading.value || providerListLoading.value);
 
