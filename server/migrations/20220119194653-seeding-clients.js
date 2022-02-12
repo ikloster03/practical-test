@@ -1,4 +1,4 @@
-const faker = require('faker');
+const faker = require('faker/locale/en_US');
 
 const AMOUNT_OF_CLIENTS = 15;
 
@@ -14,7 +14,7 @@ function* fakeClientGenerator() {
     yield {
       name: faker.fake('{{name.firstName}} {{name.lastName}}'),
       email: faker.internet.email(),
-      phone: faker.phone.phoneNumber('##########'),
+      phone: faker.phone.phoneNumber('(!##) !##-####'),
       providers: [],
       seeded: true,
     };

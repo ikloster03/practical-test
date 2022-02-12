@@ -1,4 +1,4 @@
-const faker = require('faker');
+const faker = require('faker/locale/en_US');
 
 const AMOUNT_OF_PROVIDERS = 5;
 
