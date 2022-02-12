@@ -28,7 +28,7 @@
         v-for="client in clients"
         :key="`row-client-${client._id}`"
         class="ui-table-row_client">
-        <ui-table-cell class="font-bold xl:font-light pb-4 xl:pb-0">
+        <ui-table-cell class="font-bold xl:font-normal pb-4 xl:pb-0">
           {{ client.name }}
         </ui-table-cell>
         <ui-table-cell class="pb-2 xl:pb-0">
