@@ -44,16 +44,23 @@ export default {
 <style>
 .ui-modal {
   z-index: 102;
+  overflow-y: hidden;
 }
 </style>
 <style scoped>
-.ui-modal__container {
-  @apply grid w-1/2 my-0 mx-auto;
-}
 .ui-modal__content {
-  @apply relative bg-white rounded p-8;
+  @apply relative bg-white rounded p-4;
 }
 .ui-modal__close {
   @apply absolute top-3 right-3;
 }
+@media (min-width: 1280px) {
+  .ui-modal__container {
+    @apply grid w-1/2 my-0 mx-auto;
+  }
+  .ui-modal__content {
+    @apply relative bg-white rounded p-8;
+  }
+}
+
 </style>

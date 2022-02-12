@@ -27,15 +27,28 @@ export default {
 
 <style scoped>
 .ui-group {
-  @apply flex justify-center;
+  @apply flex;
 }
+
 .ui-group__container {
-  @apply flex items-center w-3/4;
+  @apply w-full;
 }
-.ui-group__header {
-  @apply pr-3 w-2/12;
-}
-.ui-group__body {
-  @apply w-full w-10/12;
+
+@media (min-width: 1280px) {
+  .ui-group {
+    @apply flex justify-center;
+  }
+  .ui-group__container {
+    @apply flex items-center;
+  }
+  .ui-group__container {
+    @apply w-3/4;
+  }
+  .ui-group__header {
+    @apply pr-3 w-2/12;
+  }
+  .ui-group__body {
+    @apply w-full w-10/12;
+  }
 }
 </style>

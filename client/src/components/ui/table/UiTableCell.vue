@@ -40,6 +40,6 @@ export default {
   @apply px-5;
 }
 .ui-table-row__cell_chips {
-  @apply flex flex-wrap justify-center space-x-2;
+  @apply flex flex-wrap xl:justify-center space-x-2;
 }
 </style>
