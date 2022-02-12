@@ -3,6 +3,12 @@ import * as yup from 'yup';
 import 'yup-phone';
 import { ClientService } from '@/services';
 import { notifyError, notifySuccess } from '@/utils';
+import {
+  SUBJECTS,
+  EVENTS,
+  getErrorText,
+  getSuccessText,
+} from '@/definitions/notifications';
 
 export const HEADERS = [
   'Name',
@@ -51,7 +57,7 @@ const useClient = (showClientModalForm) => {
     console.error(error);
     // eslint-disable-next-line no-console
     console.error('message', clientList.value?.message ?? '');
-    notifyError('An error occurred while loading the client\'s list!');
+    notifyError(getErrorText(SUBJECTS.CLIENT, EVENTS.LOADING, 'list'));
   });
 
   const createClient = (payload) => {
@@ -63,14 +69,14 @@ const useClient = (showClientModalForm) => {
     onFetchResponse(() => {
       showClientModalForm.value = false;
       loadClientList();
-      notifySuccess(`The client ${payload.name} was successfully created!`);
+      notifySuccess(getSuccessText(SUBJECTS.CLIENT, EVENTS.CREATED, payload.name));
     });
     onFetchError((error) => {
       // eslint-disable-next-line no-console
       console.error(error);
       // eslint-disable-next-line no-console
       console.error('message', data.value?.message ?? '');
-      notifyError(`An error occurred while creating the client ${payload.name}!`);
+      notifyError(getErrorText(SUBJECTS.CLIENT, EVENTS.CREATING, payload.name));
     });
   };
 
@@ -83,14 +89,14 @@ const useClient = (showClientModalForm) => {
     onFetchResponse(() => {
       showClientModalForm.value = false;
       loadClientList();
-      notifySuccess(`The client ${client.name} was successfully updated!`);
+      notifySuccess(getSuccessText(SUBJECTS.CLIENT, EVENTS.UPDATED, client.name));
     });
     onFetchError((error) => {
       // eslint-disable-next-line no-console
       console.error(error);
       // eslint-disable-next-line no-console
       console.error('message', data.value?.message ?? '');
-      notifyError(`An error occurred while updating the client ${client.name}!`);
+      notifyError(getErrorText(SUBJECTS.CLIENT, EVENTS.UPDATING, client.name));
     });
   };
 
@@ -110,14 +116,14 @@ const useClient = (showClientModalForm) => {
     onFetchResponse(() => {
       showClientModalForm.value = false;
       loadClientList();
-      notifySuccess(`The client ${client.name} was successfully deleted!`);
+      notifySuccess(getSuccessText(SUBJECTS.CLIENT, EVENTS.DELETED, client.name));
     });
     onFetchError((error) => {
       // eslint-disable-next-line no-console
       console.error(error);
       // eslint-disable-next-line no-console
       console.error('message', data.value?.message ?? '');
-      notifyError(`An error occurred while deleting the client ${client.name}!`);
+      notifyError(getErrorText(SUBJECTS.CLIENT, EVENTS.DELETING, client.name));
     });
   };
 
