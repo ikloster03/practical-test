@@ -61,8 +61,8 @@
 <script>
 import { computed } from 'vue';
 import { Form } from 'vee-validate';
-import UiGroup from '@/components/ui/UiGroup.vue';
-import UiField from '@/components/ui/UiField.vue';
+import UiGroup from '@/components/ui/form/UiGroup.vue';
+import UiField from '@/components/ui/form/UiField.vue';
 import ProviderList from '@/components/provider/ProviderList.vue';
 import ProviderListItem from '@/components/provider/ProviderListItem.vue';
 import ProviderCreateItem from '@/components/provider/ProviderCreateItem.vue';

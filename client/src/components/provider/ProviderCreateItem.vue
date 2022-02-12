@@ -21,8 +21,8 @@
 
 <script>
 import { ref } from 'vue';
-import UiGroup from '@/components/ui/UiGroup.vue';
-import UiInput from '@/components/ui/UiInput.vue';
+import UiGroup from '@/components/ui/form/UiGroup.vue';
+import UiInput from '@/components/ui/form/UiInput.vue';
 
 export default {
   name: 'ProviderCreateItem',

@@ -39,8 +39,8 @@
 
 <script>
 import { computed, ref, watch } from 'vue';
-import UiInput from '@/components/ui/UiInput.vue';
-import UiCheckbox from '@/components/ui/UiCheckbox.vue';
+import UiInput from '@/components/ui/form/UiInput.vue';
+import UiCheckbox from '@/components/ui/form/UiCheckbox.vue';
 
 export default {
   name: 'ProviderListItem',

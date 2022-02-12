@@ -60,8 +60,8 @@ export default {
     const { required } = rules.value ? rules.value.exclusiveTests : {};
 
     const dict = {
-      input: defineAsyncComponent(() => import('@/components/ui/UiInput.vue')),
-      checkbox: defineAsyncComponent(() => import('@/components/ui/UiCheckbox.vue')),
+      input: defineAsyncComponent(() => import('@/components/ui/form/UiInput.vue')),
+      checkbox: defineAsyncComponent(() => import('@/components/ui/form/UiCheckbox.vue')),
     };
 
     if (!dict[as.value]) {
