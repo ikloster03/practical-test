@@ -1,6 +1,12 @@
 import { ProviderService } from '@/services';
 import { notifyError, notifySuccess } from '@/utils';
 import { ref, watch } from 'vue';
+import {
+  SUBJECTS,
+  EVENTS,
+  getErrorText,
+  getSuccessText,
+} from '@/definitions/notifications';
 
 const useProvider = (loadClientList) => {
   const {
@@ -12,7 +18,7 @@ const useProvider = (loadClientList) => {
     console.error(error);
     // eslint-disable-next-line no-console
     console.error('message', providerList.value?.message ?? '');
-    notifyError('An error occurred while loading the provider\'s list!');
+    notifyError(getErrorText(SUBJECTS.PROVIDER, EVENTS.LOADING, 'list'));
   });
 
   const createProvider = (payload) => {
@@ -23,14 +29,14 @@ const useProvider = (loadClientList) => {
     console.log('data', data);
     onFetchResponse(() => {
       loadProviderList();
-      notifySuccess(`The provider ${payload.name} was successfully created!`);
+      notifySuccess(getSuccessText(SUBJECTS.PROVIDER, EVENTS.CREATED, payload.name));
     });
     onFetchError((error) => {
       // eslint-disable-next-line no-console
       console.error(error);
       // eslint-disable-next-line no-console
       console.error('message', data.value?.message ?? '');
-      notifyError(`An error occurred while creating the provider ${payload.name}!`);
+      notifyError(getErrorText(SUBJECTS.PROVIDER, EVENTS.CREATING, payload.name));
     });
   };
 
@@ -43,14 +49,14 @@ const useProvider = (loadClientList) => {
     onFetchResponse(() => {
       loadProviderList();
       loadClientList();
-      notifySuccess(`The provider ${provider.name} was successfully updated!`);
+      notifySuccess(getSuccessText(SUBJECTS.PROVIDER, EVENTS.UPDATED, provider.name));
     });
     onFetchError((error) => {
       // eslint-disable-next-line no-console
       console.error(error);
       // eslint-disable-next-line no-console
       console.error('message', data.value?.message ?? '');
-      notifyError(`An error occurred while updating the provider ${provider.name}!`);
+      notifyError(getErrorText(SUBJECTS.PROVIDER, EVENTS.UPDATING, provider.name));
     });
   };
 
@@ -70,14 +76,14 @@ const useProvider = (loadClientList) => {
     onFetchResponse(() => {
       loadProviderList();
       loadClientList();
-      notifySuccess(`The provider ${provider.name} was successfully deleted!`);
+      notifySuccess(getSuccessText(SUBJECTS.PROVIDER, EVENTS.DELETED, provider.name));
     });
     onFetchError((error) => {
       // eslint-disable-next-line no-console
       console.error(error);
       // eslint-disable-next-line no-console
       console.error('message', data.value?.message ?? '');
-      notifyError(`An error occurred while deleting the provider ${provider.name}!`);
+      notifyError(getErrorText(SUBJECTS.PROVIDER, EVENTS.DELETING, provider.name));
     });
   };
 
