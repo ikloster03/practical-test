@@ -6,6 +6,7 @@
       :value="modelValue"
       type="text"
       class="ui-input__input"
+      :class="{ 'ui-input__input_error': !!errorMessage }"
       @input="$emit('update:modelValue', $event.target.value)"
       @focus="onFocus"
       @blur="onFocus">
@@ -60,7 +61,7 @@ export default {
 
 <style scoped>
 .ui-input {
-
+  @apply relative;
 }
 
 .ui-input__input {
@@ -82,7 +83,13 @@ export default {
     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
 }
 
-.ui-input__error {
+.ui-input__input_error {
+  @apply border-red-600;
+}
 
+.ui-input__error {
+  @apply absolute text-red-600;
+  height: 24px;
+  overflow: hidden;
 }
 </style>

@@ -91,6 +91,6 @@ export default {
 
 <style scoped>
 .ui-field {
-  @apply py-3;
+  @apply pt-3 pb-6;
 }
 </style>
