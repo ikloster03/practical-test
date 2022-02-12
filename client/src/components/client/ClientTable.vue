@@ -28,32 +28,33 @@
         v-for="client in clients"
         :key="`row-client-${client._id}`"
         class="ui-table-row_client">
-        <ui-table-cell>
+        <ui-table-cell class="font-bold xl:font-light pb-4 xl:pb-0">
           {{ client.name }}
         </ui-table-cell>
-        <ui-table-cell>
+        <ui-table-cell class="pb-2 xl:pb-0">
           {{ client.email }}
         </ui-table-cell>
-        <ui-table-cell>
+        <ui-table-cell class="pb-2 xl:pb-0">
           {{ formatPhoneNumber(client.phone) }}
         </ui-table-cell>
-        <ui-table-cell chips>
+        <ui-table-cell
+          chips
+          class="pb-2 xl:pb-0">
           <provider-chip
             v-for="provider in client.providers"
             :key="`provider-${client._id}-${provider._id}`"
             :provider-name="provider.name" />
         </ui-table-cell>
-        <ui-table-cell>
+        <ui-table-cell class="flex justify-between">
           <ui-button
             type="link"
+            class="mr-2"
             @click.prevent="openModal(client)">
             <span class="pr-2">
               Edit
             </span>
             <ui-icon name="edit" />
           </ui-button>
-        </ui-table-cell>
-        <ui-table-cell>
           <ui-button
             type="link"
             @click.prevent="removeClient(client)">
@@ -115,12 +116,18 @@ export default {
 
 <style scoped>
 .ui-table-row_client {
-  grid-template-columns:
+
+}
+
+@media (min-width: 1280px) {
+  .ui-table-row_client {
+    grid-template-columns:
     minmax(150px, 1fr)
     minmax(250px, 1.5fr)
     minmax(150px, 0.5fr)
     minmax(350px, 1.5fr)
-    minmax(100px, 0.5fr)
-    minmax(100px, 0.5fr);
+    minmax(200px, 1fr);
+  }
 }
+
 </style>

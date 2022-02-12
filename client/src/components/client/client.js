@@ -15,8 +15,7 @@ export const HEADERS = [
   'Email',
   'Phone',
   'Providers',
-  'Edit',
-  'Delete',
+  'Actions',
 ];
 
 export const useClientFields = (props) => [
