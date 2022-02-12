@@ -16,7 +16,6 @@
 
 <script>
 import { computed, reactive, ref } from 'vue';
-import { formatPhoneNumber } from '@/utils';
 import ClientModalForm from '@/components/client/ClientModalForm.vue';
 import useClient, { HEADERS } from '@/components/client/client';
 import useProvider from '@/components/provider/provider';
@@ -77,14 +76,8 @@ export default {
       clientList,
       loading,
       modal,
-      formatPhoneNumber,
       openModal,
-      createClient,
-      updateClient,
       removeClient,
-      createProvider,
-      updateProvider,
-      removeProvider,
     };
   },
 };
