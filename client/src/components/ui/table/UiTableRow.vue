@@ -20,10 +20,10 @@ export default {
 
 <style scoped>
 .ui-table-row {
-  @apply grid py-2 odd:bg-white even:bg-slate-100 hover:bg-slate-300;
+  @apply grid py-2 xl:odd:bg-white xl:even:bg-slate-100 xl:hover:bg-slate-300;
 }
 
 .ui-table-row_header {
-  @apply bg-cyan-600 text-white odd:bg-cyan-600 hover:bg-cyan-600;
+  @apply hidden xl:grid bg-cyan-600 text-white odd:bg-cyan-600 hover:bg-cyan-600;
 }
 </style>
