@@ -16,6 +16,9 @@ export default {
 </script>
 
 <style scoped>
+.ui-table {
+  @apply relative;
+}
 .ui-table__header {
   @apply flex justify-between items-center p-5 bg-slate-100;
 }
