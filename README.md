@@ -7,6 +7,12 @@ The practical test for interview.
 3. [Frontend's documentation](/client/README.md)
 4. [Backend's documentation](/server/README.md)
 
+## Tech stack (MEVN)
+
+1. Frontend - Vue.js (v3)
+2. Backend - Node.js (Express.js)
+3. DB - MongoDB
+
 ## Deployment
 
 [Test stage](https://practical-test-six.vercel.app/) was deployed with help:
