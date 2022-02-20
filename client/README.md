@@ -1,5 +1,7 @@
 # Client
 
+![Vercel](https://vercel-badge.ikloster.dev/api/ikloster03/practical-test)
+
 ## Install
 
 1. [Download and install LTS Node.js](https://nodejs.org/en/download/)
