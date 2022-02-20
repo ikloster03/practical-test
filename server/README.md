@@ -1,5 +1,7 @@
 # Server
 
+![Heroku](https://heroku-badge.herokuapp.com/?app=practical-test-2022&root=health-check)
+
 ## Install
 
 1. [Download and install LTS Node.js](https://nodejs.org/en/download/)
